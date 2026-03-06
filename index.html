@@ -518,7 +518,7 @@ border: none; border-radius: 2px; cursor: pointer; transition: all 0.15s;
 </div>
 
 <script>
-// ── DATA ──
+// DATA
 const QUOTES = [
   "The rock doesn't care about your excuses.",
   "Fall seven times, climb eight.",
@@ -549,7 +549,7 @@ const WORKOUTS = [
   { id:'wpulls',  name:'W-Pulls',           desc:'2–3×6–10 · Strict · Light load · +1–2 kg when 10 reps are clean', unit:'sets', accent:'#f1c40f' },
 ];
 
-// ── STATE ──
+// STATE
 let state = {
   streak: parseInt(localStorage.getItem('streak') || '0'),
   lastDate: localStorage.getItem('lastDate') || '',
@@ -561,7 +561,7 @@ let state = {
 };
 WORKOUTS.forEach(w => state.workouts[w.id] = 0);
 
-// ── HELPERS ──
+// HELPERS
 function getWeekKey() {
   const d = new Date();
   const jan1 = new Date(d.getFullYear(), 0, 1);
@@ -585,7 +585,7 @@ function getGradeColor(grade) {
 
 function pad(n) { return String(n).padStart(2,'0'); }
 
-// ── STREAK ──
+// STREAK
 function checkStreak() {
   const today = new Date().toDateString();
   const yesterday = new Date(Date.now() - 86400000).toDateString();
@@ -597,7 +597,7 @@ function checkStreak() {
   localStorage.setItem('lastDate', today);
 }
 
-// ── QUOTE ──
+// QUOTE
 function cycleQuote() {
   const el = document.getElementById('quoteBar');
   el.style.opacity = '0';
@@ -607,7 +607,7 @@ function cycleQuote() {
   }, 400);
 }
 
-// ── WORKOUTS ──
+// WORKOUTS
 function renderWorkouts() {
   const grid = document.getElementById('workoutGrid');
   grid.innerHTML = '';
@@ -636,7 +636,7 @@ function changeRep(id, delta) {
   setTimeout(() => el.style.color = '', 300);
 }
 
-// ── GRADE SELECT ──
+// GRADE SELECT
 document.querySelectorAll('.grade-pill').forEach(pill => {
   pill.addEventListener('click', () => {
     document.querySelectorAll('.grade-pill').forEach(p => p.classList.remove('active'));
@@ -645,7 +645,7 @@ document.querySelectorAll('.grade-pill').forEach(pill => {
   });
 });
 
-// ── TIMER ──
+// TIMER
 function updateTimerDisplay() {
   document.getElementById('timerDisplay').textContent = `00:${pad(state.timer.remaining)}`;
 }
@@ -722,7 +722,7 @@ function resetTimer() {
   updateTimerDisplay();
 }
 
-// ── SEND LOG ──
+// SEND LOG
 function logSend() {
   const grade = state.selectedGrade || '?';
   const now = new Date();
@@ -784,7 +784,7 @@ function renderLog() {
   `).join('');
 }
 
-// ── CHART ──
+// CHART
 function renderChart() {
   const days = getWeekDays();
   const DAY_LABELS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -816,7 +816,7 @@ function renderChart() {
   }).join('');
 }
 
-// ── WEEKLY REWARD ──
+// WEEKLY REWARD
 function getWeeklySendCount() {
   return getWeekDays().reduce((t, d) => t + state.sends.filter(s => s.date === d.toDateString()).length, 0);
 }
@@ -841,7 +841,7 @@ async function showReward(sendCount) {
   overlay.style.display = 'flex';
 
   const types = [
-    'a short funny climbing poem (4–6 lines)',
+    'a short funny climbing poem (4-6 lines)',
     'a witty haiku about rock climbing (3 lines, 5-7-5)',
     'a punchy motivational limerick for a climber (5 lines, AABBA rhyme)',
     'a two-line climbing joke followed by a one-sentence pep talk',
@@ -857,7 +857,7 @@ async function showReward(sendCount) {
         max_tokens: 200,
         messages: [{
           role: 'user',
-          content: `Write ${chosen} for a rock climber who has just logged their ${sendCount}th session this week. Make it punchy, funny and specific to climbing culture. Keep it under 60 words. Output only the text itself — no title, no explanation, no quotation marks.`
+          content: `Write ${chosen} for a rock climber who has just logged their ${sendCount}th session this week. Make it punchy, funny and specific to climbing culture. Keep it under 60 words. Output only the text itself - no title, no explanation, no quotation marks.`
         }]
       })
     });
@@ -868,7 +868,7 @@ async function showReward(sendCount) {
       "Your fingers weep chalk,\nyour forearms cry for mercy —\nthree sessions? Legend.",
       "Why do climbers make terrible chefs?\nThey always crimp the pastry.\nSeriously though — three sessions this week. The wall fears you.",
       "There once was a climber so keen,\nwho trained more than most have ever been,\n   they sent every route,\n   and chalked up their suit,\nand their forearms became quite obscene.",
-      "Roses are red,\nholds are crimpy and small,\nyou trained three times this week —\nyou're the best of them all. 💪",
+      "Roses are red,\nholds are crimpy and small,\nyou trained three times this week —\nyou're the best of them all.",
     ];
     textEl.textContent = fallbacks[Math.floor(Math.random() * fallbacks.length)];
   }
@@ -876,7 +876,7 @@ async function showReward(sendCount) {
 
 function closeReward() { document.getElementById('rewardOverlay').style.display = 'none'; }
 
-// ── CONFETTI ──
+// CONFETTI
 function confetti() {
   const colors = ['#e67e22','#c0392b','#f1c40f','#27ae60','#2980b9','#8e44ad','#f0ece0'];
   for (let i = 0; i < 40; i++) {
@@ -888,7 +888,7 @@ function confetti() {
   }
 }
 
-// ── INIT ──
+// INIT
 checkStreak();
 document.getElementById('streakNum').textContent = state.streak;
 cycleQuote();
